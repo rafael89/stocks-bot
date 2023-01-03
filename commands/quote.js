@@ -10,7 +10,12 @@ module.exports = {
     maxArgs: 1,
     expectedArgs: "<token>",
     callback: async (interaction) => {
-        let quote = await quoteEndpoint(interaction.args[0])
+        var quoteCode = interaction.args[0];
+
+        if(!quoteCode.endsWith('.sa'))
+            quoteCode += '.sa';
+
+        let quote = await quoteEndpoint(quoteCode);
 
         return {
             content: `${interaction.args[0]} Price: \`${quote["Global Quote"]["05. price"]}\`.`,

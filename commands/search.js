@@ -10,7 +10,12 @@ module.exports = {
     maxArgs: 1,
     expectedArgs: "<keyword>",
     callback: async (interaction) => {
-        let search = await searchEndpoint(interaction.args[0])
+        var quoteCode = interaction.args[0];
+
+        if(!quoteCode.endsWith('.sa'))
+            quoteCode += '.sa';
+		
+        let search = await searchEndpoint(quoteCode);
 
         if (search.bestMatches[0] === undefined)
             return { content: "no results found", ephemeral: true }
