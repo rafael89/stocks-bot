@@ -6,6 +6,7 @@
 */
 
 const fetch = require("node-fetch");
+const apiKey = process.env.ALPHAVANTAGE_KEY;
 
 /*
   Name: fetchPatiently(String url, Object params): Object
@@ -28,7 +29,7 @@ async function fetchPatiently(url, params) {
 function requestSearchEndpoint(keyword) {
     return new Promise(async (resolve, reject) => {
 
-        const response = await fetchPatiently(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${process.env.ALPHAVINTAGE_KEY}`, {
+        const response = await fetchPatiently(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${apiKey}`, {
             method: "GET",
             headers: {
                 'User-Agent': 'request'
@@ -53,7 +54,7 @@ module.exports.searchEndpoint = async (keyword) => {
 function requestQuoteEndpoint(symbol) {
     return new Promise(async (resolve, reject) => {
 
-        const response = await fetchPatiently(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${process.env.ALPHAVINTAGE_KEY}`, {
+        const response = await fetchPatiently(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`, {
             method: "GET",
             headers: {
                 'User-Agent': 'request'
