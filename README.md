@@ -1,4 +1,6 @@
 # stocks-bot
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rafael89/stocks-bot/blob/main/LICENSE)
+
 Realtime and historical stock market data Discord bot using [Alpha Vantage](https://www.alphavantage.co/).
 
 ## Commands
