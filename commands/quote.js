@@ -1,7 +1,7 @@
 'use strict';
 
 const { CommandType } = require("wokcommands");
-const { quoteEndpoint } = require("../alphaVantage");
+const { quoteResult } = require("../alphaVantage");
 
 module.exports = {
     description: "Returns the price and volume information for a token of your choice.",
@@ -10,10 +10,8 @@ module.exports = {
     maxArgs: 1,
     expectedArgs: "<token>",
     callback: async (interaction) => {
-        let quote = await quoteEndpoint(interaction.args[0])
+        let quote = await quoteResult(interaction.args[0])
 
-        return {
-            content: `${interaction.args[0]} Price: \`${quote["Global Quote"]["05. price"]}\`.`,
-        }
+        return quote
     }
 }
