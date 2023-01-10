@@ -11,9 +11,15 @@ Returns the price and volume information for a token of your choice
 
 ### Search
 
-Returns the best-matching symbols and market information based on keywords of your choice.
+Returns the best-matching symbol and market information based on keyword of your choice.
 
 `/search`
+
+### AutoSearch
+
+Autocomplete the best-matching symbols based on keywords of your choice.
+
+`/autosearch`
 
 ## Setup
 1. [Create your app with a Bot](https://discordapp.com/developers/applications/me).
