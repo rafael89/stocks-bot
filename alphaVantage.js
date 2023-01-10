@@ -3,10 +3,13 @@
 /*
     Alpha Vantage API Documentation
     https://www.alphavantage.co/documentation/
+
+    Standard API call frequency is 5 calls per minute and 500 calls per day. 
+    Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency.
 */
 
 const fetch = require("node-fetch");
-const apiKey = process.env.ALPHAVANTAGE_KEY;
+const alphavantageUrl = `https://www.alphavantage.co/query?apikey=${process.env.ALPHAVANTAGE_KEY}`;
 
 /*
   Name: fetchPatiently(String url, Object params): Object
@@ -26,10 +29,10 @@ async function fetchPatiently(url, params) {
     return response;
 }
 
-function requestSearchEndpoint(keyword) {
+function requestEndpoint(parameters) {
     return new Promise(async (resolve, reject) => {
 
-        const response = await fetchPatiently(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${apiKey}`, {
+        const response = await fetchPatiently(alphavantageUrl + parameters, {
             method: "GET",
             headers: {
                 'User-Agent': 'request'
@@ -38,40 +41,23 @@ function requestSearchEndpoint(keyword) {
 
         if (!response.ok) return;
 
-        const json = await response.json().catch(reject);        
+        const json = await response.json().catch(reject);
         if (!json) return;
 
         resolve(json)
     });
 }
 
-module.exports.searchEndpoint = async (keyword) => {
-    const result = await requestSearchEndpoint(keyword).catch(console.error);
+module.exports.requestEndpoint = async (parameters) => {
+    const result = await requestEndpoint(parameters).catch(console.error);
 
     return result;
-};
-
-function requestQuoteEndpoint(symbol) {
-    return new Promise(async (resolve, reject) => {
-
-        const response = await fetchPatiently(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`, {
-            method: "GET",
-            headers: {
-                'User-Agent': 'request'
-            }
-        }).catch(reject);
-
-        if (!response.ok) return;
-
-        const json = await response.json().catch(reject);        
-        if (!json) return;
-
-        resolve(json)
-    });
 }
 
-module.exports.quoteEndpoint = async (symbol) => {
-    const result = await requestQuoteEndpoint(symbol).catch(console.error);
+module.exports.quoteResult = async (symbol) => {
+    let quote = await requestEndpoint(`&function=GLOBAL_QUOTE&symbol=${symbol}`).catch(console.error);
 
-    return result;
-};
+    if (quote["Note"]) return quote["Note"];
+
+    return `${symbol} - Price: ${quote["Global Quote"]["05. price"]}`;
+}

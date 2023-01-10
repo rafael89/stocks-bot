@@ -26,7 +26,6 @@ client.on('ready', () => {
     new WOK({
         client,
         commandsDir: path.join(__dirname, 'commands'),
-        testServers: ['986608378233098320', '295732999058882572'],
         disabledDefaultCommands: [
             DefaultCommands.ChannelCommand,
             DefaultCommands.CustomCommand,
