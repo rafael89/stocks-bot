@@ -1,4 +1,6 @@
 # stocks-bot
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rafael89/stocks-bot/blob/main/LICENSE)
+
 Realtime and historical stock market data Discord bot using [Alpha Vantage](https://www.alphavantage.co/).
 
 ## Commands
@@ -18,6 +20,6 @@ Returns the best-matching symbols and market information based on keywords of yo
 2. Add an .env file on root
 3. Copy your bot's secret token and paste it into .env (DISCORD_TOKEN)
 4. Get your free Alpha Vantage API Key [Alpha Vantage API Key](https://www.alphavantage.co/support/#api-key), paste it into .env (ALPHAVANTAGE_KEY)
-5. [Install Node.js](https://nodejs.org/en/download): `brew install node`
+5. [Install Node.js](https://nodejs.org/en/download)
 6. [Install the dependencies](./package.json): `npm install`
 7. [Run the bot](./index.js): `npm start`
